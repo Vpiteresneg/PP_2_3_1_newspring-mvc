@@ -1,13 +1,4 @@
-//package web.controller;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
-//import org.springframework.web.bind.annotation.*;
-//import web.model.User;
-//import web.service.UserService;
-//
-//
+
 /// /В приложении должна быть страница, на которую выводятся все юзеры с возможностью добавлять, удалять и изменять юзера.
 /// /4. Конфигурация Spring через JavaConfig и аннотации, по аналогии с предыдущими проектами. Без использования xml. Без Spring Boot.
 /// /5. Внесите изменения в конфигурацию для работы с базой данных. Вместо SessionFactory должен использоваться EntityManager.
@@ -51,20 +42,7 @@
 //}
 //
 //
-////Создадим страницу для редактирования человека
-//@GetMapping("/edit")
-//public String edit(@RequestParam("id") Long id, Model model) {
-//        model.addAttribute("user", userService.findById(id));
-//        return "user/edit";
-//}
-//
-//
-//    // Удаление пользователя
-//    @GetMapping("/delete")
-//    public String deleteUser(@RequestParam("id") Long id) {
-//        userService.deleteUser(id);
-//        return "redirect:/users";  // После удаления перенаправляем на список пользователей
-//    }
+
 package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +53,7 @@ import web.model.User;
 import web.service.UserService;
 
 import java.util.List;
+
 
 @Controller
 @RequestMapping("/users")
@@ -92,24 +71,19 @@ public class UsersController {
     @GetMapping("/new")
     public String newUser(Model model) {
         model.addAttribute("user", new User());
-        return "user/new";
+        return "user/new";// Страница для создания нового пользователя
     }
 
-    @PostMapping("/users")
+    @PostMapping()
     public String createUser(@ModelAttribute("user") User user) {
         userService.saveUser(user);
-        return "redirect:/users";
+        return "redirect:/users"; // Редирект на страницу списка пользователей
     }
-//    @GetMapping
-//    public String listUsers(Model model) {
-//        model.addAttribute("users", userService.getAll());
-//        return "user/list";
-//    }
 
     @GetMapping("/edit")
     public String editUser(@RequestParam("id") Long id, Model model) {
         model.addAttribute("user", userService.findById(id));
-        return "user/edit";
+        return "user/edit";// Страница для редактирования пользователя
     }
 
     @PostMapping("/update")
